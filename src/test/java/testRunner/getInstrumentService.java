@@ -27,7 +27,7 @@ public class getInstrumentService extends signatureGeneratorUtil
        String signature = signatureUtilGenerator();
        String KeyId= getGlobalValue("UAT");
        //RestAssured.baseURI ="https://localhost:443";
-       //RestAssured.useRelaxedHTTPSValidation();
+        RestAssured.useRelaxedHTTPSValidation();
        Response res= given()
                .config(RestAssured.config().sslConfig(
                        new SSLConfig().allowAllHostnames()))
@@ -38,6 +38,7 @@ public class getInstrumentService extends signatureGeneratorUtil
                 .header("x-request-path","/instrument-details/instruments/279048")
                 .header("x-key-Id",KeyId)
                 .header("x-signature",signature)
+                .relaxedHTTPSValidation("SSL")
                 .when().get("/instrument-details/credit-card/279408")
                 .then().log().all().extract().response();
         int statusCode = response.getStatusCode();
