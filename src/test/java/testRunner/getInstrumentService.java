@@ -1,5 +1,7 @@
 package testRunner;
 import io.restassured.RestAssured;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.config.SSLConfig;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.ResponseSpecification;
@@ -24,9 +26,12 @@ public class getInstrumentService extends signatureGeneratorUtil
    public void InstrumentService() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
        String signature = signatureUtilGenerator();
        String KeyId= getGlobalValue("UAT");
-       RestAssured.baseURI ="http://localhost:443";
-       RestAssured.useRelaxedHTTPSValidation();
-       Response res=  given().log().all().header("host","localhost")
+       //RestAssured.baseURI ="https://localhost:443";
+       //RestAssured.useRelaxedHTTPSValidation();
+       Response res=  given()
+               .config(RestAssuredConfig.newConfig().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
+               .baseUri("https://localhost:443")
+               .log().all().header("host","localhost")
                 .header("x-timestamp", Instant.now().toEpochMilli())
                 .header("x-request-method","GET")
                 .header("x-request-path","/instrument-details/instruments/279048")
