@@ -28,8 +28,9 @@ public class getInstrumentService extends signatureGeneratorUtil
        String KeyId= getGlobalValue("UAT");
        //RestAssured.baseURI ="https://localhost:443";
        //RestAssured.useRelaxedHTTPSValidation();
-       Response res=  given()
-               .config(RestAssuredConfig.newConfig().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
+       Response res= given()
+               .config(RestAssured.config().sslConfig(
+                       new SSLConfig().allowAllHostnames()))
                .baseUri("https://localhost:443")
                .log().all().header("host","localhost")
                 .header("x-timestamp", Instant.now().toEpochMilli())
