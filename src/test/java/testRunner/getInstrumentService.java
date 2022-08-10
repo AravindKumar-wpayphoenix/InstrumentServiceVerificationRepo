@@ -24,6 +24,7 @@ public class getInstrumentService extends signatureGeneratorUtil
    public void InstrumentService() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
        String signature = signatureUtilGenerator();
        String KeyId= getGlobalValue("UAT");
+       RestAssured.useRelaxedHTTPSValidation();
        RestAssured.baseURI ="https://localhost:443";
        Response res=  given().log().all().header("host","localhost")
                 .header("x-timestamp", Instant.now().toEpochMilli())
