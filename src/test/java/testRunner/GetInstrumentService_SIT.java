@@ -30,7 +30,7 @@ public class GetInstrumentService_SIT extends UtilityClass
                 .header("x-timestamp", Instant.now().toEpochMilli())
                 .header("x-request-method","GET")
                 .header("x-request-path","/instrument-details/instruments/"+InstrumentId)
-                .header("x-key-Id","ltasD+JmKhIoVPQRzpyuP8V8nP1S9dUrI930yeg53t0=")
+                .header("x-key-Id","gkqgkqP2HSv1Z1YAv5CqdP3nA889e4c8xvwwpxzV4SQJiE=")
                 .header("x-signature",signature)
                 .relaxedHTTPSValidation("TLS")
                 .when().get("/instrument-details/credit-card/"+InstrumentId)
