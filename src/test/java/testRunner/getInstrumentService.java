@@ -41,7 +41,8 @@ public class getInstrumentService extends signatureGeneratorUtil
                 .relaxedHTTPSValidation("TLS")
                 .when().get("/instrument-details/credit-card/294332")
                 .then().log().all().extract().response();
-        int statusCode = response.getStatusCode();
+        int statusCode = res.getStatusCode();
+        System.out.println(200);
        assertEquals(statusCode,200);
 
     }
