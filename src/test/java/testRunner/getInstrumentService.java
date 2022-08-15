@@ -31,17 +31,15 @@ public class getInstrumentService extends signatureGeneratorUtil
        String KeyId= getGlobalValue("UAT");
         disableSSLVerification();
        Response res= given()
-               .config(RestAssured.config().sslConfig(
-                       new SSLConfig().allowAllHostnames()))
                .baseUri("https://localhost:443")
                .log().all().header("host","localhost")
                 .header("x-timestamp", Instant.now().toEpochMilli())
                 .header("x-request-method","GET")
-                .header("x-request-path","/instrument-details/instruments/279048")
+                .header("x-request-path","/instrument-details/instruments/294332")
                 .header("x-key-Id",KeyId)
                 .header("x-signature",signature)
                 .relaxedHTTPSValidation("TLS")
-                .when().get("/instrument-details/credit-card/279408")
+                .when().get("/instrument-details/credit-card/294332")
                 .then().log().all().extract().response();
         int statusCode = response.getStatusCode();
        assertEquals(statusCode,200);
