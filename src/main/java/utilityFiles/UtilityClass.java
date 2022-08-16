@@ -14,14 +14,14 @@ import java.util.Properties;
 import java.util.Scanner;
 public class UtilityClass
 {
-    public String signatureUtilGenerator() throws NoSuchAlgorithmException, InvalidKeyException {
+    public String signatureUtilGenerator(String SecretKey) throws NoSuchAlgorithmException, InvalidKeyException {
 
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter host, xRequestMethod, xRequestPath and secret :");
         String host = "localhost";
         String xRequestMethod = "GET";
         String xRequestPath = "/instrument-details/credit-card/279408";
-        String secretKey = "ltasD+JmKhIoVPQRzpyuP8V8nP1S9dUrI930yeg53t0=";
+        String secretKey = SecretKey;
         long xTimestamp = Instant.now().toEpochMilli();
         System.out.println("host: " + host);
         System.out.println("xRequestMethod: " + xRequestMethod);
@@ -47,7 +47,7 @@ public class UtilityClass
         return Base64.getEncoder().encodeToString(aHeaders);
     }
 
-    public  String getGlobalValue(String Key) throws IOException, IOException {
+    public  String getValue(String Key) throws IOException, IOException {
         Properties prop =new Properties();
         FileInputStream fis =new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\java\\propertyFile\\config.properties");
         prop.load(fis);

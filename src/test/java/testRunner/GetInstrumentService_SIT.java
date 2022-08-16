@@ -14,15 +14,17 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
+import java.util.Properties;
 
 public class GetInstrumentService_SIT extends UtilityClass
 {
+    Properties prop= new Properties();
     Response response;
     @Test
    public void InstrumentService() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
-       String signature = signatureUtilGenerator();
-       String KeyId= getGlobalValue("UAT");
-       String InstrumentId=getGlobalValue("SITItemId");
+       String signature = signatureUtilGenerator(getValue("SITSecretKey"));
+       //String KeyId= getGlobalValue("UAT");
+       String InstrumentId=getValue("SITItemId");
        disableSSLVerification();
        Response res= given()
                .baseUri("https://localhost:443")
@@ -30,7 +32,7 @@ public class GetInstrumentService_SIT extends UtilityClass
                 .header("x-timestamp", Instant.now().toEpochMilli())
                 .header("x-request-method","GET")
                 .header("x-request-path","/instrument-details/instruments/"+InstrumentId)
-                .header("x-key-Id","gkqgkqP2HSv1Z1YAv5CqdP3nA889e4c8xvwwpxzV4SQJiE=")
+                .header("x-key-Id",getValue("SITKeyID"))
                 .header("x-signature",signature)
                 .relaxedHTTPSValidation("TLS")
                 .when().get("/instrument-details/credit-card/"+InstrumentId)

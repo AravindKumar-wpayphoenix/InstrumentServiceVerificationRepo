@@ -7,19 +7,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
+import javax.net.ssl.*;
 import java.io.IOException;
 import java.security.InvalidKeyException;
+import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.time.Instant;
+import java.util.Properties;
 
 public class GetInstrumentService_UAT extends UtilityClass
 {
+    Properties prop= new Properties();
     Response response;
     @Test
     public void InstrumentService() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
-        String signature = signatureUtilGenerator();
-        String KeyId= getGlobalValue("UAT");
-        String InstrumentId=getGlobalValue("UATItemId");
+        String InstrumentId=getValue("UATItemId");
+        String SecretKey=getValue("UATSecretKey");
+        System.out.println(SecretKey);
+        String signature = signatureUtilGenerator(SecretKey);
         disableSSLVerification();
         Response res= given()
                 .baseUri("https://localhost:443")
@@ -27,7 +33,7 @@ public class GetInstrumentService_UAT extends UtilityClass
                 .header("x-timestamp", Instant.now().toEpochMilli())
                 .header("x-request-method","GET")
                 .header("x-request-path","/instrument-details/instruments/"+InstrumentId)
-                .header("x-key-Id","ltasD+JmKhIoVPQRzpyuP8V8nP1S9dUrI930yeg53t0=")
+                .header("x-key-Id",getValue("UATKeyID"))
                 .header("x-signature",signature)
                 .relaxedHTTPSValidation("TLS")
                 .when().get("/instrument-details/credit-card/"+InstrumentId)
@@ -37,6 +43,4 @@ public class GetInstrumentService_UAT extends UtilityClass
         assertEquals(statusCode,200);
 
     }
-
-
 }
