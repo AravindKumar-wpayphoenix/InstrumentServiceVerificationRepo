@@ -23,6 +23,7 @@ public class UtilityClass
         String xRequestPath = "/instrument-details/credit-card/279408";
         String secretKey = SecretKey;
         long xTimestamp = Instant.now().toEpochMilli();
+        System.setProperty("xTimestamp", String.valueOf(xTimestamp));
         System.out.println("host: " + host);
         System.out.println("xRequestMethod: " + xRequestMethod);
         System.out.println("xRequestPath: " + xRequestPath);

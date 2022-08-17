@@ -30,7 +30,7 @@ public class GetInstrumentService_UAT extends UtilityClass
         Response res= given()
                 .baseUri("https://localhost:443")
                 .log().all().header("host","localhost")
-                .header("x-timestamp", Instant.now().toEpochMilli())
+                .header("x-timestamp", System.getProperty("xTimestamp"))
                 .header("x-request-method","GET")
                 .header("x-request-path","/instrument-details/credit-card/"+InstrumentId)
                 .header("x-key-Id",getValue("UATKeyID"))
