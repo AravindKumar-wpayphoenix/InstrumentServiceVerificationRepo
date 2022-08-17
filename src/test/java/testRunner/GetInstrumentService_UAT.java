@@ -1,5 +1,6 @@
 package testRunner;
 import io.restassured.response.Response;
+import org.junit.Assert;
 import utilityFiles.UtilityClass;
 
 import static io.restassured.RestAssured.given;
@@ -40,7 +41,6 @@ public class GetInstrumentService_UAT extends UtilityClass
                 .then().log().all().extract().response();
         int statusCode = res.getStatusCode();
         System.out.println(200);
-        assertEquals(statusCode,200);
-
+        Assert.assertEquals(200,statusCode);
     }
 }

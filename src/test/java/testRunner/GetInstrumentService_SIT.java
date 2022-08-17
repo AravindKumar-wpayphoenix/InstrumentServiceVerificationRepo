@@ -1,5 +1,6 @@
 package testRunner;
 import io.restassured.response.Response;
+import org.junit.Assert;
 import utilityFiles.UtilityClass;
 
 import static io.restassured.RestAssured.given;
@@ -22,14 +23,15 @@ public class GetInstrumentService_SIT extends UtilityClass
     Response response;
     @Test
    public void InstrumentService() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
-       String signature = signatureUtilGenerator(getValue("SITSecretKey"));
-       //String KeyId= getGlobalValue("UAT");
-       String InstrumentId=getValue("SITItemId");
-       disableSSLVerification();
+        String InstrumentId=getValue("SITItemId");
+        String SecretKey=getValue("SITSecretKey");
+        System.out.println(SecretKey);
+        String signature = signatureUtilGenerator(SecretKey);
+        disableSSLVerification();
        Response res= given()
                .baseUri("https://localhost:443")
                .log().all().header("host","localhost")
-                .header("x-timestamp", Instant.now().toEpochMilli())
+               .header("x-timestamp", System.getProperty("xTimestamp"))
                 .header("x-request-method","GET")
                 .header("x-request-path","/instrument-details/instruments/"+InstrumentId)
                 .header("x-key-Id",getValue("SITKeyID"))
@@ -39,7 +41,7 @@ public class GetInstrumentService_SIT extends UtilityClass
                 .then().log().all().extract().response();
         int statusCode = res.getStatusCode();
         System.out.println(200);
-       assertEquals(statusCode,200);
+        Assert.assertEquals(200,statusCode);
 
     }
 
