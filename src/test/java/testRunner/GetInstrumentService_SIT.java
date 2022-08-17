@@ -26,7 +26,7 @@ public class GetInstrumentService_SIT extends UtilityClass
         String InstrumentId=getValue("SITItemId");
         String SecretKey=getValue("SITSecretKey");
         System.out.println(SecretKey);
-        String signature = signatureUtilGenerator(SecretKey);
+        String signature = signatureUtilGenerator(SecretKey, InstrumentId);
         disableSSLVerification();
        Response res= given()
                .baseUri("https://localhost:443")

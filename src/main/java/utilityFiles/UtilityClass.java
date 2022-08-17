@@ -14,13 +14,12 @@ import java.util.Properties;
 import java.util.Scanner;
 public class UtilityClass
 {
-    public String signatureUtilGenerator(String SecretKey) throws NoSuchAlgorithmException, InvalidKeyException, IOException {
-        String InstrumentId=getValue("UATItemId");
+    public String signatureUtilGenerator(String SecretKey, String ItemId) throws NoSuchAlgorithmException, InvalidKeyException, IOException {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter host, xRequestMethod, xRequestPath and secret :");
         String host = "localhost";
         String xRequestMethod = "GET";
-        String xRequestPath = "/instrument-details/credit-card/"+InstrumentId;
+        String xRequestPath = "/instrument-details/credit-card/"+ItemId;
         String secretKey = SecretKey;
         long xTimestamp = Instant.now().toEpochMilli();
         System.setProperty("xTimestamp", String.valueOf(xTimestamp));
