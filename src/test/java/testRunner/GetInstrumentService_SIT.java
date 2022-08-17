@@ -33,7 +33,7 @@ public class GetInstrumentService_SIT extends UtilityClass
                .log().all().header("host","localhost")
                .header("x-timestamp", System.getProperty("xTimestamp"))
                 .header("x-request-method","GET")
-                .header("x-request-path","/instrument-details/instruments/"+InstrumentId)
+                .header("x-request-path","/instrument-details/credit-card/"+InstrumentId)
                 .header("x-key-Id",getValue("SITKeyID"))
                 .header("x-signature",signature)
                 .relaxedHTTPSValidation("TLS")
